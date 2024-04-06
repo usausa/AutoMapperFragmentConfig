@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AutoMapperFragmentConfig</PackageId>
+    <Title>AutoMapperFragmentConfig</Title>
+    <Description>AutoMapper fragment config generator.</Description>
+    <PackageTags>generator automapper mapper</PackageTags>
+  </PropertyGroup>
+
+</Project>

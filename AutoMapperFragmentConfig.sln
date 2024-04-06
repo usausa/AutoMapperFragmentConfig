@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMapperFragmentConfig", "AutoMapperFragmentConfig\AutoMapperFragmentConfig.csproj", "{C70DF163-8736-4A71-9EC7-89601E9478A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4A62AA0-8925-47C2-A7EA-798D6F3F9462}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Analyzers.ruleset = Analyzers.ruleset
+		AutoMapperFragmentConfig.sln.DotSettings = AutoMapperFragmentConfig.sln.DotSettings
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapperFragmentConfig.SourceGenerator", "AutoMapperFragmentConfig.SourceGenerator\AutoMapperFragmentConfig.SourceGenerator.csproj", "{229B0531-3E0D-48BB-851C-A838879C21AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapperFragmentConfig.SourceGenerator.Tests", "AutoMapperFragmentConfig.SourceGenerator.Tests\AutoMapperFragmentConfig.SourceGenerator.Tests.csproj", "{61FFE912-46B6-4C48-860E-A3DA8F4CE72E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C70DF163-8736-4A71-9EC7-89601E9478A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70DF163-8736-4A71-9EC7-89601E9478A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70DF163-8736-4A71-9EC7-89601E9478A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70DF163-8736-4A71-9EC7-89601E9478A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{229B0531-3E0D-48BB-851C-A838879C21AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229B0531-3E0D-48BB-851C-A838879C21AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229B0531-3E0D-48BB-851C-A838879C21AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229B0531-3E0D-48BB-851C-A838879C21AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61FFE912-46B6-4C48-860E-A3DA8F4CE72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61FFE912-46B6-4C48-860E-A3DA8F4CE72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61FFE912-46B6-4C48-860E-A3DA8F4CE72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61FFE912-46B6-4C48-860E-A3DA8F4CE72E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FBDC1BE-1AD4-4B19-AECF-1590D0C9FECC}
+	EndGlobalSection
+EndGlobal
