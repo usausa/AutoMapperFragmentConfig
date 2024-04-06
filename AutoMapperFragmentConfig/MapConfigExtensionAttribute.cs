@@ -1,16 +1,16 @@
 namespace AutoMapperFragmentConfig;
 
 [AttributeUsage(AttributeTargets.Method)]
-public sealed class MapExtensionAttribute : Attribute
+public sealed class MapConfigExtensionAttribute : Attribute
 {
     public string ProfileName { get; }
 
-    public MapExtensionAttribute()
+    public MapConfigExtensionAttribute()
         : this(string.Empty)
     {
     }
 
-    public MapExtensionAttribute(string profileName)
+    public MapConfigExtensionAttribute(string profileName)
     {
         ProfileName = profileName;
     }

@@ -97,7 +97,7 @@ public class Generator : IIncrementalGenerator
         }
 
         var attribute = methodSymbol.GetAttributes()
-            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == "AutoMapperFragmentConfig.MapExtensionAttribute");
+            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == "AutoMapperFragmentConfig.MapConfigExtensionAttribute");
         if (attribute is null)
         {
             return null;
@@ -142,7 +142,7 @@ public class Generator : IIncrementalGenerator
             var className = classSymbol.Name;
 
             var attribute = methodSymbol.GetAttributes()
-                .First(static x => x.AttributeClass!.ToDisplayString() == "AutoMapperFragmentConfig.MapExtensionAttribute");
+                .First(static x => x.AttributeClass!.ToDisplayString() == "AutoMapperFragmentConfig.MapConfigExtensionAttribute");
             var profileName = attribute.ConstructorArguments.Length > 0
                 ? attribute.ConstructorArguments[0].Value!.ToString()
                 : "_Fragment";

@@ -10,7 +10,7 @@ public class MapperTest
     public void TestFragmentConfig()
     {
         var services = new ServiceCollection();
-        services.AddSingleton<ICalc, AddCalc>();
+        services.AddSingleton<ICalc, IncrementCalc>();
         services.AddSingleton<IMapper>(static p => new Mapper(new MapperConfiguration(c => c.AddFragmentProfile(p))));
 
         var provider = services.BuildServiceProvider();
@@ -25,7 +25,7 @@ public class MapperTest
 
 public static partial class Extensions
 {
-    [MapExtension]
+    [MapConfigExtension]
     public static partial void AddFragmentProfile(this IMapperConfigurationExpression expression, IServiceProvider provider);
 }
 
@@ -55,7 +55,7 @@ public interface ICalc
     int Calc(int value);
 }
 
-public class AddCalc : ICalc
+public class IncrementCalc : ICalc
 {
     public int Calc(int value) => value + 1;
 }
