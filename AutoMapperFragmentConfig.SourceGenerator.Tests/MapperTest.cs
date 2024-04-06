@@ -4,7 +4,7 @@ using AutoMapper;
 
 using Microsoft.Extensions.DependencyInjection;
 
-public class ToStringTest
+public class MapperTest
 {
     [Fact]
     public void TestFragmentConfig()
