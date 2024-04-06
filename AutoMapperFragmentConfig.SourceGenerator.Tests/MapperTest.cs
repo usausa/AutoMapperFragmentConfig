@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 public class ToStringTest
 {
     [Fact]
-    public void Test1()
+    public void TestFragmentConfig()
     {
         var services = new ServiceCollection();
         services.AddSingleton<ICalc, AddCalc>();
