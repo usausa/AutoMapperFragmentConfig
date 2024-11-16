@@ -1,6 +1,6 @@
 # AutoMapperFragmentConfig
 
-[![NuGet Badge](https://buildstats.info/nuget/AutoMapperFragmentConfig)](https://www.nuget.org/packages/AutoMapperFragmentConfig/)
+[![NuGet](https://img.shields.io/nuget/v/AutoMapperFragmentConfig.svg)](https://www.nuget.org/packages/AutoMapperFragmentConfig)
 
 ## What is this?
 
