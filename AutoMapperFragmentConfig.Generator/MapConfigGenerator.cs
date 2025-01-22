@@ -17,7 +17,8 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
     private const string MapConfigAttributeName = "AutoMapperFragmentConfig.MapConfigAttribute";
     private const string MapExtensionAttributeName = "AutoMapperFragmentConfig.MapConfigExtensionAttribute";
 
-    private const string MapperConfigurationExpressionName = "AutoMapper.IMapperConfigurationExpression";
+    private const string AutoMapperMapperConfigurationExpressionName = "AutoMapper.IMapperConfigurationExpression";
+    private const string AutoMapperProfileExpressionName = "AutoMapper.IProfileExpression";
 
     private const string ServiceProviderName = "System.IServiceProvider";
 
@@ -50,28 +51,6 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
     // Parser
     // ------------------------------------------------------------
 
-    private static bool IsMapConfigTargetSyntax(SyntaxNode node) =>
-        node is MethodDeclarationSyntax;
-
-    private static Result<MapConfigModel> GetMapConfigModel(GeneratorAttributeSyntaxContext context)
-    {
-        var syntax = (MethodDeclarationSyntax)context.TargetNode;
-        if (context.SemanticModel.GetDeclaredSymbol(syntax) is not IMethodSymbol symbol)
-        {
-            return Results.Error<MapConfigModel>(null);
-        }
-
-        // Validate argument
-        // TODO
-
-        // TODO
-        return Results.Success(new MapConfigModel(
-            symbol.ContainingType.ToDisplayString(),
-            symbol.Name,
-            symbol.Parameters.Length > 1,
-            "_Fragment"));
-    }
-
     private static bool IsMapExtensionTargetSyntax(SyntaxNode node) =>
         node is MethodDeclarationSyntax;
 
@@ -83,21 +62,43 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             return Results.Error<MapConfigExtensionModel>(null);
         }
 
-        // Validate argument
-        // TODO
+        // Validate method style
+        if (!symbol.IsStatic || !symbol.IsPartialDefinition || !symbol.IsExtensionMethod || !symbol.ReturnsVoid)
+        {
+            // TODO
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
 
-        //var attribute = symbol.GetAttributes()
-        //    .First(static x => x.AttributeClass!.ToDisplayString() == "AutoMapperFragmentConfig.MapConfigExtensionAttribute");
-        //var profileName = attribute.ConstructorArguments.Length > 0
-        //    ? attribute.ConstructorArguments[0].Value!.ToString()
-        //    : "_Fragment";
+        // Validate argument
+        if ((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2))
+        {
+            // TODO
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        if (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperMapperConfigurationExpressionName)
+        {
+            // TODO
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        if ((symbol.Parameters.Length > 1) &&
+            (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName))
+        {
+            // TODO
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
 
         var containingType = symbol.ContainingType;
         var ns = String.IsNullOrEmpty(containingType.ContainingNamespace.Name)
             ? string.Empty
             : containingType.ContainingNamespace.ToDisplayString();
 
-        // TODO profile
+        var attribute = symbol.GetAttributes()
+            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
+        var profileName = attribute?.ConstructorArguments.Length > 0
+            ? attribute.ConstructorArguments[0].Value!.ToString()
+            : "_Fragment";
 
         return Results.Success(new MapConfigExtensionModel(
             ns,
@@ -107,7 +108,58 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             symbol.Name,
             symbol.Parameters[0].Name,
             symbol.Parameters.Length > 0 ? symbol.Parameters[1].Name : string.Empty,
-            "_Fragment"));
+            profileName));
+    }
+
+    private static bool IsMapConfigTargetSyntax(SyntaxNode node) =>
+        node is MethodDeclarationSyntax;
+
+    private static Result<MapConfigModel> GetMapConfigModel(GeneratorAttributeSyntaxContext context)
+    {
+        var syntax = (MethodDeclarationSyntax)context.TargetNode;
+        if (context.SemanticModel.GetDeclaredSymbol(syntax) is not IMethodSymbol symbol)
+        {
+            return Results.Error<MapConfigModel>(null);
+        }
+
+        // Validate method style
+        if (!symbol.IsStatic || !symbol.ReturnsVoid)
+        {
+            // TODO
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        // Validate argument
+        if ((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2))
+        {
+            // TODO
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        if (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperProfileExpressionName)
+        {
+            // TODO
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        if ((symbol.Parameters.Length > 1) &&
+            (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName))
+        {
+            // TODO
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+        }
+
+        var attribute = symbol.GetAttributes()
+            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
+        var profileName = attribute?.ConstructorArguments.Length > 0
+            ? attribute.ConstructorArguments[0].Value!.ToString()
+            : "_Fragment";
+
+        return Results.Success(new MapConfigModel(
+            symbol.ContainingType.ToDisplayString(),
+            symbol.Name,
+            symbol.Parameters.Length > 1,
+            profileName));
     }
 
     // ------------------------------------------------------------
@@ -130,8 +182,16 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
         {
             context.CancellationToken.ThrowIfCancellationRequested();
 
-            var targetConfigs = configs.SelectPart(static x => x.Value).Where(x => x.ProfileName == extension.ProfileName);
-            // TODO UseProviderチェック
+            var targetConfigs = configs
+                .SelectPart(static x => x.Value)
+                .Where(x => x.ProfileName == extension.ProfileName)
+                .ToList();
+            if (String.IsNullOrEmpty(extension.ProviderParameterName) &&
+                targetConfigs.Any(static x => x.HasProviderParameter))
+            {
+                // TODO UseProviderチェック
+                continue;
+            }
 
             builder.Clear();
             BuildSource(builder, extension, targetConfigs);
@@ -166,7 +226,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             .Append(" static partial void ")
             .Append(extension.MethodName)
             .Append("(this ")
-            .Append(MapperConfigurationExpressionName)
+            .Append(AutoMapperMapperConfigurationExpressionName)
             .Append(' ')
             .Append(extension.ExpressionParameterName);
         if (!String.IsNullOrEmpty(extension.ProviderParameterName))
