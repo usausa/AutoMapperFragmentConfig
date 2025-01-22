@@ -1,4 +1,8 @@
+using System.Runtime.CompilerServices;
+
 [assembly: CLSCompliant(false)]
+
+[assembly: InternalsVisibleTo("AutoMapperFragmentConfig.Tests")]
 
 // ReSharper disable ArrangeNamespaceBody
 // ReSharper disable CheckNamespace

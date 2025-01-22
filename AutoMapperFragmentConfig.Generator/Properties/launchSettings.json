@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AutoMapperFragmentConfig.Generator": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Develop\\Develop.csproj"
+    }
+  }
+}

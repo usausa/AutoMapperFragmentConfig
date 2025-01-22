@@ -7,20 +7,21 @@
     <RootNamespace>AutoMapperFragmentConfig</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <!-- for debug -->
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-  </PropertyGroup>
-
-  <Import Project="..\AutoMapperFragmentConfig.SourceGenerator\build\AutoMapperFragmentConfig.SourceGenerator.props" />
-
   <ItemGroup>
     <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TemplateLibraryGeneratorValue>test</TemplateLibraryGeneratorValue>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="coverlet.collector" Version="6.0.3">
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -30,8 +31,10 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" />
   </ItemGroup>
 
+  <Import Project="..\AutoMapperFragmentConfig.Generator\build\AutoMapperFragmentConfig.props" />
+
   <ItemGroup>
-    <ProjectReference Include="..\AutoMapperFragmentConfig.SourceGenerator\AutoMapperFragmentConfig.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\AutoMapperFragmentConfig.Generator\AutoMapperFragmentConfig.Generator.csproj" OutputItemType="analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\AutoMapperFragmentConfig\AutoMapperFragmentConfig.csproj" />
   </ItemGroup>
 

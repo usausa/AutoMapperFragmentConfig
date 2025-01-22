@@ -3,14 +3,30 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoWarn>$(NoWarn);NU5129</NoWarn>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);PackBuildOutputs</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="PackBuildOutputs" DependsOnTargets="SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="..\AutoMapperFragmentConfig.Generator\build\**" PackagePath="build" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\AutoMapperFragmentConfig.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+  </Target>
 
   <PropertyGroup>
     <PackageId>AutoMapperFragmentConfig</PackageId>
     <Title>AutoMapperFragmentConfig</Title>
     <Description>AutoMapper fragment config generator.</Description>
-    <PackageTags>generator automapper mapper</PackageTags>
+    <PackageTags>sourcegenerator automapper mapper</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoMapperFragmentConfig.Generator\AutoMapperFragmentConfig.Generator.csproj" PrivateAssets="all" />
+  </ItemGroup>
 
 </Project>
