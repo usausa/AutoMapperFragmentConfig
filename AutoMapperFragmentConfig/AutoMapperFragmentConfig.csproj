@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>$(NoWarn);NU5129</NoWarn>
+    <NoWarn>$(NoWarn);NU5118;NU5129</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <Target Name="PackBuildOutputs" DependsOnTargets="SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup">
-    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+    <ItemGroup>
       <TfmSpecificPackageFile Include="..\AutoMapperFragmentConfig.Generator\build\**" PackagePath="build" />
       <TfmSpecificPackageFile Include="$(OutputPath)\AutoMapperFragmentConfig.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
