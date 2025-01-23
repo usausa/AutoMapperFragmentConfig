@@ -65,28 +65,15 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
         // Validate method style
         if (!symbol.IsStatic || !symbol.IsPartialDefinition || !symbol.IsExtensionMethod || !symbol.ReturnsVoid)
         {
-            // TODO
-            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(Diagnostics.InvalidExtensionMethodDefinition, syntax.GetLocation(), symbol.Name));
         }
 
         // Validate argument
-        if ((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2))
+        if (((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2)) ||
+            (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperMapperConfigurationExpressionName) ||
+            ((symbol.Parameters.Length > 1) && (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName)))
         {
-            // TODO
-            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
-        }
-
-        if (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperMapperConfigurationExpressionName)
-        {
-            // TODO
-            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
-        }
-
-        if ((symbol.Parameters.Length > 1) &&
-            (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName))
-        {
-            // TODO
-            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+            return Results.Error<MapConfigExtensionModel>(new DiagnosticInfo(Diagnostics.InvalidExtensionMethodParameter, syntax.GetLocation(), symbol.Name));
         }
 
         var containingType = symbol.ContainingType;
@@ -125,28 +112,15 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
         // Validate method style
         if (!symbol.IsStatic || !symbol.ReturnsVoid)
         {
-            // TODO
-            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(Diagnostics.InvalidConfigMethodDefinition, syntax.GetLocation(), symbol.Name));
         }
 
         // Validate argument
-        if ((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2))
+        if (((symbol.Parameters.Length != 1) && (symbol.Parameters.Length != 2)) ||
+            (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperProfileExpressionName) ||
+            ((symbol.Parameters.Length > 1) && (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName)))
         {
-            // TODO
-            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
-        }
-
-        if (symbol.Parameters[0].Type.ToDisplayString() != AutoMapperProfileExpressionName)
-        {
-            // TODO
-            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
-        }
-
-        if ((symbol.Parameters.Length > 1) &&
-            (symbol.Parameters[1].Type.ToDisplayString() != ServiceProviderName))
-        {
-            // TODO
-            return Results.Error<MapConfigModel>(new DiagnosticInfo(null!, syntax.GetLocation()));
+            return Results.Error<MapConfigModel>(new DiagnosticInfo(Diagnostics.InvalidConfigMethodParameter, syntax.GetLocation(), symbol.Name));
         }
 
         var attribute = symbol.GetAttributes()
