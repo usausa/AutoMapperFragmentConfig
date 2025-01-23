@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <Target Name="PackBuildOutputs" DependsOnTargets="SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup">
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
       <TfmSpecificPackageFile Include="..\AutoMapperFragmentConfig.Generator\build\**" PackagePath="build" />
       <TfmSpecificPackageFile Include="$(OutputPath)\AutoMapperFragmentConfig.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
