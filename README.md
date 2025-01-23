@@ -10,11 +10,7 @@ Configure AutoMapper locally.
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="AutoMapperFragmentConfig" Version="0.3.0" />
-    <PackageReference Include="AutoMapperFragmentConfig.SourceGenerator" Version="0.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="AutoMapperFragmentConfig" Version="1.0.0" />
   </ItemGroup>
 ```
 
