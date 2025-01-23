@@ -163,7 +163,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             if (String.IsNullOrEmpty(extension.ProviderParameterName) &&
                 targetConfigs.Any(static x => x.HasProviderParameter))
             {
-                // TODO UseProviderチェック
+                context.ReportDiagnostic(Diagnostic.Create(Diagnostics.ProviderParameterRequired, null, extension.MethodName));
                 continue;
             }
 
