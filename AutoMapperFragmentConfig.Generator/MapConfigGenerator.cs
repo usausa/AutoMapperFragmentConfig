@@ -14,8 +14,8 @@ using Microsoft.CodeAnalysis.Text;
 [Generator]
 public sealed class MapConfigGenerator : IIncrementalGenerator
 {
-    private const string MapConfigAttributeName = "AutoMapperFragmentConfig.MapConfigAttribute";
     private const string MapExtensionAttributeName = "AutoMapperFragmentConfig.MapConfigExtensionAttribute";
+    private const string MapConfigAttributeName = "AutoMapperFragmentConfig.MapConfigAttribute";
 
     private const string AutoMapperMapperConfigurationExpressionName = "AutoMapper.IMapperConfigurationExpression";
     private const string AutoMapperProfileExpressionName = "AutoMapper.IProfileExpression";
