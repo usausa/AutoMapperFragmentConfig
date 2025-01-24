@@ -122,7 +122,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             return Results.Error<MapConfigModel>(new DiagnosticInfo(Diagnostics.InvalidConfigMethodParameter, syntax.GetLocation(), symbol.Name));
         }
 
-        var attribute = symbol.GetAttributes().First(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
+        var attribute = symbol.GetAttributes().First(static x => x.AttributeClass!.ToDisplayString() == MapConfigAttributeName);
         var profileName = attribute.ConstructorArguments.Length > 0
             ? attribute.ConstructorArguments[0].Value!.ToString()
             : "_Fragment";
