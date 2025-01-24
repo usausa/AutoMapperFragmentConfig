@@ -188,7 +188,12 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
         }
 
         // class
-        builder.Indent().Append("partial ").Append(extension.IsValueType ? "struct " : "class ").Append(extension.ClassName).NewLine();
+        builder
+            .Indent()
+            .Append("partial ")
+            .Append(extension.IsValueType ? "struct " : "class ")
+            .Append(extension.ClassName)
+            .NewLine();
         builder.BeginScope();
 
         // method
