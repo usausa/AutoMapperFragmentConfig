@@ -81,9 +81,8 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             ? string.Empty
             : containingType.ContainingNamespace.ToDisplayString();
 
-        var attribute = symbol.GetAttributes()
-            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
-        var profileName = attribute?.ConstructorArguments.Length > 0
+        var attribute = symbol.GetAttributes().First(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
+        var profileName = attribute.ConstructorArguments.Length > 0
             ? attribute.ConstructorArguments[0].Value!.ToString()
             : "_Fragment";
 
@@ -123,9 +122,8 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             return Results.Error<MapConfigModel>(new DiagnosticInfo(Diagnostics.InvalidConfigMethodParameter, syntax.GetLocation(), symbol.Name));
         }
 
-        var attribute = symbol.GetAttributes()
-            .FirstOrDefault(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
-        var profileName = attribute?.ConstructorArguments.Length > 0
+        var attribute = symbol.GetAttributes().First(static x => x.AttributeClass!.ToDisplayString() == MapExtensionAttributeName);
+        var profileName = attribute.ConstructorArguments.Length > 0
             ? attribute.ConstructorArguments[0].Value!.ToString()
             : "_Fragment";
 
