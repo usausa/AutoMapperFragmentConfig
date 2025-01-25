@@ -15,9 +15,7 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <TemplateLibraryGeneratorValue>test</TemplateLibraryGeneratorValue>
-  </PropertyGroup>
+  <Import Project="..\AutoMapperFragmentConfig.props" />
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
@@ -30,8 +28,6 @@
     <PackageReference Include="xunit.v3" Version="1.0.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" />
   </ItemGroup>
-
-  <Import Project="..\AutoMapperFragmentConfig.Generator\build\AutoMapperFragmentConfig.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\AutoMapperFragmentConfig.Generator\AutoMapperFragmentConfig.Generator.csproj" OutputItemType="analyzer" ReferenceOutputAssembly="false" />
