@@ -271,7 +271,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             buffer.Append('_');
         }
 
-        buffer.Append(className);
+        buffer.Append(className.Replace('<', '[').Replace('>', ']'));
         buffer.Append(".g.cs");
 
         return buffer.ToString();
