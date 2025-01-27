@@ -88,7 +88,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
 
         return Results.Success(new MapConfigExtensionModel(
             ns,
-            containingType.Name,
+            containingType.GetClassName(),
             containingType.IsValueType,
             symbol.DeclaredAccessibility,
             symbol.Name,
