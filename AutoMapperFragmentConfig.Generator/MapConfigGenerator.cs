@@ -56,11 +56,8 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
 
     private static Result<MapConfigExtensionModel> GetMapExtensionModel(GeneratorAttributeSyntaxContext context)
     {
-        var syntax = (MethodDeclarationSyntax)context.TargetNode;
-        if (context.SemanticModel.GetDeclaredSymbol(syntax) is not IMethodSymbol symbol)
-        {
-            return Results.Error<MapConfigExtensionModel>(null);
-        }
+        var syntax = context.TargetNode;
+        var symbol = (IMethodSymbol)context.TargetSymbol;
 
         // Validate method style
         if (!symbol.IsStatic || !symbol.IsPartialDefinition || !symbol.IsExtensionMethod || !symbol.ReturnsVoid)
@@ -102,11 +99,8 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
 
     private static Result<MapConfigModel> GetMapConfigModel(GeneratorAttributeSyntaxContext context)
     {
-        var syntax = (MethodDeclarationSyntax)context.TargetNode;
-        if (context.SemanticModel.GetDeclaredSymbol(syntax) is not IMethodSymbol symbol)
-        {
-            return Results.Error<MapConfigModel>(null);
-        }
+        var syntax = context.TargetNode;
+        var symbol = (IMethodSymbol)context.TargetSymbol;
 
         // Validate method style
         if (!symbol.IsStatic || !symbol.ReturnsVoid)
