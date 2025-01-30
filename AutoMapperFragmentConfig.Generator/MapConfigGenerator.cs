@@ -4,12 +4,13 @@ using System;
 using System.Collections.Immutable;
 using System.Text;
 
-using AutoMapperFragmentConfig.Generator.Helpers;
 using AutoMapperFragmentConfig.Generator.Models;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+
+using SourceGenerateHelper;
 
 [Generator]
 public sealed class MapConfigGenerator : IIncrementalGenerator
@@ -134,22 +135,22 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
 
     private static void Execute(SourceProductionContext context, ImmutableArray<Result<MapConfigExtensionModel>> extensions, ImmutableArray<Result<MapConfigModel>> configs)
     {
-        foreach (var info in extensions.SelectPart(static x => x.Error))
+        foreach (var info in extensions.SelectError())
         {
             context.ReportDiagnostic(info);
         }
-        foreach (var info in configs.SelectPart(static x => x.Error))
+        foreach (var info in configs.SelectError())
         {
             context.ReportDiagnostic(info);
         }
 
         var builder = new SourceBuilder();
-        foreach (var extension in extensions.SelectPart(static x => x.Value))
+        foreach (var extension in extensions.SelectValue())
         {
             context.CancellationToken.ThrowIfCancellationRequested();
 
             var targetConfigs = configs
-                .SelectPart(static x => x.Value)
+                .SelectValue()
                 .Where(x => x.ProfileName == extension.ProfileName)
                 .ToList();
             if (String.IsNullOrEmpty(extension.ProviderParameterName) &&

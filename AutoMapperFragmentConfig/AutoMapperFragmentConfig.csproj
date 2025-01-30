@@ -15,6 +15,7 @@
     <ItemGroup>
       <TfmSpecificPackageFile Include="..\AutoMapperFragmentConfig.props" PackagePath="build" />
       <TfmSpecificPackageFile Include="$(OutputPath)\AutoMapperFragmentConfig.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+      <TfmSpecificPackageFile Include="$(PKGSourceGenerateHelper)\lib\netstandard2.0\SourceGenerateHelper.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
   </Target>
 
@@ -24,6 +25,10 @@
     <Description>AutoMapper fragment config generator.</Description>
     <PackageTags>sourcegenerator automapper mapper</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SourceGenerateHelper" Version="0.4.0" GeneratePathProperty="true" PrivateAssets="all" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AutoMapperFragmentConfig.Generator\AutoMapperFragmentConfig.Generator.csproj" PrivateAssets="all" />
