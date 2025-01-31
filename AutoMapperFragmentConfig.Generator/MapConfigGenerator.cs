@@ -123,7 +123,7 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             : "_Fragment";
 
         return Results.Success(new MapConfigModel(
-            symbol.ContainingType.ToDisplayString(),
+            symbol.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             symbol.Name,
             symbol.Parameters.Length > 1,
             profileName));
@@ -197,14 +197,14 @@ public sealed class MapConfigGenerator : IIncrementalGenerator
             .Append(extension.MethodAccessibility.ToText())
             .Append(" static partial void ")
             .Append(extension.MethodName)
-            .Append("(this ")
+            .Append("(this global::")
             .Append(AutoMapperMapperConfigurationExpressionName)
             .Append(' ')
             .Append(extension.ExpressionParameterName);
         if (!String.IsNullOrEmpty(extension.ProviderParameterName))
         {
             builder
-                .Append(", ")
+                .Append(", global::")
                 .Append(ServiceProviderName)
                 .Append(' ')
                 .Append(extension.ProviderParameterName);
