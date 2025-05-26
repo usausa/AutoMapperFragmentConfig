@@ -12,7 +12,9 @@
     <File Path="README.md" />
     <File Path="test.runsettings" />
   </Folder>
-  <Project Path="AutoMapperFragmentConfig/AutoMapperFragmentConfig.csproj" />
+  <Project Path="AutoMapperFragmentConfig/AutoMapperFragmentConfig.csproj">
+    <BuildDependency Project="AutoMapperFragmentConfig.Generator/AutoMapperFragmentConfig.Generator.csproj" />
+  </Project>
   <Project Path="AutoMapperFragmentConfig.Generator/AutoMapperFragmentConfig.Generator.csproj" />
   <Project Path="AutoMapperFragmentConfig.Tests/AutoMapperFragmentConfig.Tests.csproj" />
 </Solution>
