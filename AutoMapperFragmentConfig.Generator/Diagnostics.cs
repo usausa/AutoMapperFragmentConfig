@@ -9,7 +9,7 @@ internal static class Diagnostics
         title: "Invalid extension method definition",
         messageFormat: "Extension method must be static void. method=[{0}]",
         category: "Usage",
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
     public static DiagnosticDescriptor InvalidExtensionMethodParameter => new(
@@ -17,7 +17,7 @@ internal static class Diagnostics
         title: "Invalid extension method parameter",
         messageFormat: "Parameter type must be IMapperConfigurationExpression and IServiceProvider(option). method=[{0}]",
         category: "Usage",
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
     public static DiagnosticDescriptor InvalidConfigMethodDefinition => new(
@@ -25,7 +25,7 @@ internal static class Diagnostics
         title: "Invalid config method definition",
         messageFormat: "Config method must be static void. method=[{0}]",
         category: "Usage",
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
     public static DiagnosticDescriptor InvalidConfigMethodParameter => new(
@@ -33,7 +33,7 @@ internal static class Diagnostics
         title: "Invalid config method parameter",
         messageFormat: "Parameter type must be IProfileExpression and IServiceProvider(option). method=[{0}]",
         category: "Usage",
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
     public static DiagnosticDescriptor ProviderParameterRequired => new(
